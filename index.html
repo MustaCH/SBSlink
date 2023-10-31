@@ -40,6 +40,7 @@
           Compra tu entrada acá
         </h1>
         <script
+          id="mercadoPagoScript"
           src="https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js"
           data-preference-id="212804722-874eb2c3-952e-47f8-bdf4-21a0ed0401c3"
           data-source="button"
@@ -66,5 +67,61 @@
         de lunes a viernes de 10:00hs a 20:00hs.
       </p>
     </footer>
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-app.js";
+      import {
+        getFirestore,
+        collection,
+        doc,
+        getDoc,
+      } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-firestore.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyDb6_cvgO0yiNr7LznDjjz3MoD71sIX870",
+        authDomain: "sbsticket.firebaseapp.com",
+        projectId: "sbsticket",
+        storageBucket: "sbsticket.appspot.com",
+        messagingSenderId: "598909285517",
+        appId: "1:598909285517:web:7d9b6ddf92808e00c59ec4",
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+
+      async function getEventLink() {
+        try {
+          // Obtén una referencia al documento "main-event" en la colección "events"
+          const eventRef = doc(collection(db, "events"), "main-event");
+
+          // Obten el documento
+          const eventDoc = await getDoc(eventRef);
+
+          if (eventDoc.exists()) {
+            // El documento existe, obtén el valor de "link"
+            const eventData = eventDoc.data();
+            const link = eventData.link;
+            return link;
+          } else {
+            console.error("El documento 'main-event' no existe.");
+            return null;
+          }
+        } catch (error) {
+          console.error("Error al obtener el enlace del evento: ", error);
+          return null;
+        }
+      }
+
+      // Llama a la función para obtener el enlace del evento
+      getEventLink().then((link) => {
+        if (link) {
+          console.log("Enlace del evento:", link);
+          const scriptElement = document.getElementById("mercadoPagoScript");
+
+          // Actualiza la propiedad src con el enlace obtenido de Firebase
+          scriptElement.src = link;
+          // Puedes usar el enlace como desees en tu página HTML
+        }
+      });
+    </script>
   </body>
 </html>
