@@ -90,14 +90,11 @@
 
       async function getEventLink() {
         try {
-          // Obtén una referencia al documento "main-event" en la colección "events"
           const eventRef = doc(collection(db, "events"), "main-event");
 
-          // Obten el documento
           const eventDoc = await getDoc(eventRef);
 
           if (eventDoc.exists()) {
-            // El documento existe, obtén el valor de "link"
             const eventData = eventDoc.data();
             const link = eventData.link;
             return link;
@@ -111,15 +108,11 @@
         }
       }
 
-      // Llama a la función para obtener el enlace del evento
       getEventLink().then((link) => {
         if (link) {
           console.log("Enlace del evento:", link);
           const scriptElement = document.getElementById("mercadoPagoScript");
-
-          // Actualiza la propiedad src con el enlace obtenido de Firebase
           scriptElement.src = link;
-          // Puedes usar el enlace como desees en tu página HTML
         }
       });
     </script>
