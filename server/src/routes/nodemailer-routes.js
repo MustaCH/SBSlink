@@ -9,7 +9,8 @@ nodemailerRouter.post("/", async (req, res) => {
       from: "Subsuelo 808",
       subject: "Tu entrada para Subsuelo808",
       to: email,
-      html: `<h1>Hola ${name} ${lastname}</h1>`,
+      html: `<h1>Hola ${name} ${lastname}</h1>
+      <p>Tu entrada adquirida con éxito</p>`,
     });
     res.status(200).json({ message: "Email enviado correctamente" });
   } catch (error) {
