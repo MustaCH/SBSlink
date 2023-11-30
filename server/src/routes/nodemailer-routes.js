@@ -4,13 +4,12 @@ const nodemailerRouter = express.Router();
 
 nodemailerRouter.post("/", async (req, res) => {
   try {
-    const { email, name, lastname } = req.body;
+    const { email, name, lastname, html } = req.body;
     await transporter.sendMail({
       from: "Subsuelo 808",
       subject: "Tu entrada para Subsuelo808",
       to: email,
-      html: `<h1>Hola ${name} ${lastname}</h1>
-      <p>Tu entrada adquirida con éxito</p>`,
+      html: html,
     });
     res.status(200).json({ message: "Email enviado correctamente" });
   } catch (error) {

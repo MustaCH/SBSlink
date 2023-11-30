@@ -74,7 +74,7 @@ function TicketForm() {
   return (
     <section>
       <div className="text-white flex flex-col lg:flex-row-reverse justify-center w-full mt-8">
-        <div className="flex flex-col items-center gap-4 ps-8 lg:ps-0">
+        <div className="flex flex-col items-center gap-4">
           <h2 className="text-2xl  font-bold uppercase mb-8">
             Ingresa tus datos:
           </h2>
