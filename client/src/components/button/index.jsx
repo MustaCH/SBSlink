@@ -2,7 +2,7 @@ import React from "react";
 
 function Button({ name, onClick, customStyle }) {
   const buttonStyle =
-    "bg-red-700 p-2 rounded-lg text-white hover:scale-110 duration-150";
+    "bg-gradient-to-r from-rose-700 to-red-600 p-2 rounded-lg text-white hover:scale-110 duration-150 drop-shadow-xl";
 
   const style = `${buttonStyle} ${customStyle || ""}`;
 

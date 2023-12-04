@@ -1,26 +1,26 @@
-import React, { useRef } from "react";
+import React from "react";
 import axios from "axios";
-import TicketForm from "../../ticketForm";
 import { useEffect, useState } from "react";
 import { getEvent } from "../../../database/firebase";
 import Button from "../../button";
 import Input from "../../input";
 import Ticket from "../../ticket";
-import { render } from "@react-email/render";
+import { useClient } from "../../../context";
 
 function Home() {
   const [existingEvent, setExistingEvent] = useState();
+  const { setClientData } = useClient();
   const [showForm, setShowForm] = useState(false);
   const [name, setName] = useState("XXXXX");
   const [lastName, setLastName] = useState("");
   const [dni, setDni] = useState("XXXXX");
   const [email, setEmail] = useState("XXXXX");
   const [tickets, setTickets] = useState();
+  const [selectedTicketCount, setSelectedTicketCount] = useState(0);
   const eventDate = existingEvent?.date;
   const eventLocation = existingEvent?.location;
   const ticketType = existingEvent?.currentTicket;
   const ticketValue = existingEvent?.ticket;
-  const ticketRef = useRef();
 
   useEffect(() => {
     const currentEvent = async () => {
@@ -61,24 +61,12 @@ function Home() {
 
   const handleGuestTickets = (e) => {
     let value = parseInt(e.target.value, 10);
+    setSelectedTicketCount(value);
+
     if (existingEvent?.twone === true) {
       value = Math.ceil(value / 2);
     }
     setTickets(value);
-  };
-
-  const handleCreateInvite = () => {
-    handleStoreGuest({
-      name,
-      lastName,
-      dni,
-      email,
-      tickets,
-      date,
-      twone,
-      ticketValue,
-      ticketType,
-    });
   };
 
   const handlePurchase = async (producto) => {
@@ -86,30 +74,23 @@ function Home() {
       "http://localhost:4000/Mercado_Pago",
       producto
     );
+    const ticketsToStore = existingEvent?.twone ? selectedTicketCount : tickets;
+
+    localStorage.setItem(
+      "clientData",
+      JSON.stringify({
+        name,
+        lastName,
+        dni,
+        email,
+        tickets: ticketsToStore,
+        date: eventDate,
+        twone: existingEvent?.twone,
+        ticketValue,
+        ticketType,
+      })
+    );
     window.location.href = response.data;
-  };
-
-  const html = render(
-    <Ticket
-      name={name}
-      lastName={lastName}
-      dni={dni}
-      tickets={tickets}
-      date={eventDate}
-      location={eventLocation}
-    />,
-    {
-      pretty: true,
-    }
-  );
-
-  const sendEmail = async () => {
-    await axios.post("http://localhost:4000/nodemailer", {
-      email: email,
-      name: name,
-      lastname: lastName,
-      html: html,
-    });
   };
 
   const product = {
@@ -123,7 +104,7 @@ function Home() {
       <header>
         <div className="flex justify-center">
           <img
-            className="w-56"
+            className="w-56 drop-shadow-xl"
             src="https://i.ibb.co/JvhG82X/SBS808-LOGOcomp-RED.png"
             alt="SBS808-LOGOcomp-RED"
           />
@@ -137,7 +118,8 @@ function Home() {
             </h1>
             <div>
               <p className="text-lg mb-5">
-                Proxima fecha: {existingEvent?.date}
+                Proxima fecha:{" "}
+                <span className="underline">{existingEvent?.date}</span>
               </p>
               <img
                 className="w-96"
@@ -155,10 +137,10 @@ function Home() {
           </div>
         ) : (
           <div className="flex flex-col items-center gap-4 mb-24 lg:mb-0">
-            <section>
+            <section className="bg-gradient-to-r from-red-700/80 to-rose-600/80 px-6 py-8 mt-8  rounded-lg drop-shadow-2xl">
               <div className="text-white flex flex-col lg:flex-row-reverse justify-center w-full mt-8">
                 <div className="flex flex-col items-center gap-4">
-                  <h2 className="text-2xl  font-bold uppercase mb-8">
+                  <h2 className="text-2xl  font-bold uppercase mb-4">
                     Ingresa tus datos:
                   </h2>
                   <Input
@@ -204,7 +186,7 @@ function Home() {
                   {existingEvent?.twone === true ? (
                     <div className="flex items-center gap-4 text-xl">
                       <p>
-                        <span className="text-red-500 font-bold">2x1</span>{" "}
+                        <span className="text-black font-bold">2x1</span>{" "}
                         activo! Aprovechalo!
                       </p>
                     </div>
@@ -212,15 +194,12 @@ function Home() {
                     <></>
                   )}
                 </div>
-                <div ref={ticketRef}>
-                  <Ticket />
-                </div>
               </div>
             </section>
             <div className="mt-8">
               <Button
                 name={"Ir a pagar"}
-                onClick={() => sendEmail()}
+                onClick={() => handlePurchase(product)}
                 customStyle={"px-12"}
               />
             </div>
@@ -228,7 +207,7 @@ function Home() {
         )}
       </main>
       <footer className="my-8 text-start">
-        <p className="text-xs text-white  bottom-0 left-0 backdrop-blur-xl w-full">
+        <p className="text-xs text-white w-full">
           Subsuelo 808® es un evento de indole privada. La organización se
           reserva el derecho de admisión o permanencia primando siempre por el
           bienestar de los asistentes, así como del staff del evento y del
