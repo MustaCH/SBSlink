@@ -1,5 +1,6 @@
 {
   "name": "sbslink",
+  "homepage": "https://mustach.github.io/SBSlink/",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -7,7 +8,9 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "dependencies": {
     "@react-email/container": "^0.0.10",
@@ -20,6 +23,7 @@
     "axios": "^1.6.2",
     "downloadjs": "^1.4.7",
     "firebase": "^10.7.0",
+    "gh-pages": "^6.1.0",
     "html-to-image": "^1.11.11",
     "ldrs": "^1.0.1",
     "react": "^18.2.0",
