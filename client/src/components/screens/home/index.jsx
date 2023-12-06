@@ -71,7 +71,7 @@ function Home() {
 
   const handlePurchase = async (producto) => {
     const response = await axios.post(
-      "https://subsuelo808-tickets.onrender.com/Mercado_Pago",
+      "http://localhost:4000/Mercado_Pago",
       producto
     );
     const ticketsToStore = existingEvent?.twone ? selectedTicketCount : tickets;
