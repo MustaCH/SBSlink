@@ -21,8 +21,8 @@ mercadoPago.post("/", async (req, res) => {
         },
       ],
       back_urls: {
-        success: "http://localhost:5173/approved",
-        failure: "http://localhost:5173/declined",
+        success: "https://subsuelo808-tickets.onrender.com/approved",
+        failure: "https://subsuelo808-tickets.onrender.com/declined",
       },
       auto_return: "approved",
     };
