@@ -21,8 +21,8 @@ mercadoPago.post("/", async (req, res) => {
         },
       ],
       back_urls: {
-        success: "/approved",
-        failure: "/declined",
+        success: "http://localhost:5173/approved",
+        failure: "http://localhost:5173/declined",
       },
       auto_return: "approved",
     };
