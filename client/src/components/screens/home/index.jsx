@@ -21,6 +21,7 @@ function Home() {
   const eventLocation = existingEvent?.location;
   const ticketType = existingEvent?.currentTicket;
   const ticketValue = existingEvent?.ticket;
+  const URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5173";
 
   useEffect(() => {
     const currentEvent = async () => {
@@ -70,10 +71,7 @@ function Home() {
   };
 
   const handlePurchase = async (producto) => {
-    const response = await axios.post(
-      "http://localhost:4000/Mercado_Pago",
-      producto
-    );
+    const response = await axios.post(`${URL}/Mercado_Pago`, producto);
     const ticketsToStore = existingEvent?.twone ? selectedTicketCount : tickets;
 
     localStorage.setItem(
