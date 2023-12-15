@@ -17,7 +17,7 @@ function Home() {
   const [email, setEmail] = useState("XXXXX");
   const [tickets, setTickets] = useState();
   const [selectedTicketCount, setSelectedTicketCount] = useState(0);
-  const [inputVal, setInputVal] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
   const eventDate = existingEvent?.date;
   const eventLocation = existingEvent?.location;
   const ticketType = existingEvent?.currentTicket;
@@ -73,7 +73,7 @@ function Home() {
 
   const handlePurchase = async (producto) => {
     if (!name || !lastName || !dni || !email || !tickets) {
-      alert("Por favor completa todos los campos antes de proceder al pago.");
+      setShowAlert(true);
       return;
     } else {
       const response = await axios.post(`${URL}/Mercado_Pago`, producto);
@@ -202,6 +202,13 @@ function Home() {
               </div>
             </section>
             <div className="mt-8">
+              {showAlert === true ? (
+                <p className="mb-1 text-red-600 ">
+                  *Completa todos los campos antes de proceder al pago*
+                </p>
+              ) : (
+                <></>
+              )}
               <Button
                 name={"Ir a pagar"}
                 onClick={() => handlePurchase(product)}
