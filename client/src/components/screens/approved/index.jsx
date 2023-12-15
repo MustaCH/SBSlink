@@ -120,7 +120,7 @@ function Approved() {
   };
 
   return (
-    <div>
+    <div className="overflow-hidden">
       <div className="flex flex-col gap-4">
         <h1 className="text-xl font-bold uppercase">Pago aprovado!</h1>
         <div className="mb-8">

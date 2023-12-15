@@ -10,54 +10,41 @@ import QRCode from "react-qr-code";
 function Ticket({ name, lastName, dni, tickets, date, location }) {
   return (
     <div className="">
-      <section className="w-[380px]">
-        <div
-          style={{
-            display: "grid",
-            placeItems: "center",
-            margin: "0 auto",
-            textAlign: "center",
-            color: "white",
-            padding: "20px 48px",
-            backgroundColor: "#7f1d1d",
-            borderRadius: "10px",
-          }}
-        >
-          <div style={{ display: "grid", placeItems: "center" }}>
+      <section className="w-[680px] h-fit">
+        <div className="flex  gap-12 bg-[url('https://i.ibb.co/syfyH4t/SBS808-LOGOredu-Mini.png')] bg-neutral-900 p-10 rounded-lg">
+          <div className="grid place-items-center">
+            <div className="grid place-items-center">
+              <QRCode
+                value={`DNI: ${dni} - Nombre: ${name} ${lastName} - Entradas: ${tickets}`}
+              />
+            </div>
+          </div>
+          <div className="flex flex-col justify-between items-center">
             <img
-              style={{ width: "300px", placeSelf: "center" }}
-              src="https://i.ibb.co/rH6fG0Y/SBS808-LOGOcomp-RED.png"
+              className="w-64"
+              src="https://i.ibb.co/x14BwGV/SBS808-LOGOcomp-RED.png"
             ></img>
+            <div className="flex flex-col items-start justify-between mt-4">
+              <p>
+                Nombre:{" "}
+                <strong>
+                  {name} {lastName}
+                </strong>
+              </p>
+              <p>
+                DNI: <strong>{dni}</strong>
+              </p>
+              <p>
+                Entradas: <strong>{tickets}</strong>
+              </p>
+              <div className="text-start mt-4">
+                <p className="text-md">
+                  Válido hasta: <strong>{date}</strong>
+                </p>
+                <p className="text-md">{location}</p>
+              </div>
+            </div>
           </div>
-          <p style={{ fontSize: "1.3rem", marginBottom: "30px" }}>
-            Bienvenido al infierno, <strong>{name}</strong>.
-            <br />
-            Utiliza éste <strong>código QR</strong> para acceder al evento.
-          </p>
-          <p>
-            Nombre:{" "}
-            <strong>
-              {name} {lastName}
-            </strong>
-          </p>
-          <p className="mb-4">
-            Entradas: <strong>{tickets}</strong>
-          </p>
-          <div style={{ display: "grid", placeItems: "center" }}>
-            <QRCode
-              value={`DNI: ${dni} - Nombre: ${name} ${lastName} - Entradas: ${tickets}`}
-            />
-          </div>
-          <p
-            style={{
-              fontSize: "1.2rem,",
-              fontWeight: "bold",
-              marginTop: "1rem",
-            }}
-          >
-            <strong>Valido hasta:</strong> {date}
-          </p>
-          <p style={{ fontSize: "0.8rem," }}>{location}</p>
         </div>
       </section>
     </div>
