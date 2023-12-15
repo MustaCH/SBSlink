@@ -17,6 +17,7 @@ function Home() {
   const [email, setEmail] = useState("XXXXX");
   const [tickets, setTickets] = useState();
   const [selectedTicketCount, setSelectedTicketCount] = useState(0);
+  const [inputVal, setInputVal] = useState(false);
   const eventDate = existingEvent?.date;
   const eventLocation = existingEvent?.location;
   const ticketType = existingEvent?.currentTicket;
@@ -110,18 +111,17 @@ function Home() {
       </header>
       <main className="flex flex-col text-center">
         {showForm === false ? (
-          <div className="flex flex-col gap-12 items-center mt-10 mb-24 lg:my-10">
-            <h1 className="text-2xl uppercase font-semibold text-white drop-shadow-xl">
+          <div className="flex flex-col text-white gap-12 items-center mt-10 mb-24 lg:my-10">
+            <h1 className="text-2xl uppercase font-semibold  drop-shadow-xl">
               CONSEGUÍ TU ENTRADA ACÁ 🤘
             </h1>
             <div>
               <p className="text-lg mb-5">
-                Proxima fecha:{" "}
-                <span className="underline">{existingEvent?.date}</span>
-                <span>{eventDate}</span>
+                Proxima fecha: <span className="underline">{eventDate}</span>
               </p>
+              <p className="text-lg mb-5">{eventLocation}</p>
               <img
-                className="w-96"
+                className="w-96 rounded-lg"
                 src={existingEvent?.link}
                 alt="event-flyer"
               />
@@ -136,7 +136,7 @@ function Home() {
           </div>
         ) : (
           <div className="flex flex-col items-center gap-4 mb-24 lg:mb-0">
-            <section className="bg-gradient-to-r from-red-700/80 to-rose-600/80 px-6 py-8 mt-8  rounded-lg drop-shadow-2xl">
+            <section className="bg-gradient-to-r from-neutral-700/80 to-black/80 px-6 py-8 mt-8  rounded-lg drop-shadow-2xl">
               <div className="text-white flex flex-col lg:flex-row-reverse justify-center w-full mt-8">
                 <div className="flex flex-col items-center gap-4">
                   <h2 className="text-2xl  font-bold uppercase mb-4">
@@ -179,14 +179,13 @@ function Home() {
                     labelFor={"tickets"}
                     name={"tickets"}
                     type={"number"}
-                    customStyle={"text-white"}
                     onChange={handleGuestTickets}
                   />
                   {existingEvent?.twone === true ? (
                     <div className="flex items-center gap-4 text-xl">
                       <p>
-                        <span className="text-black font-bold">2x1</span>{" "}
-                        activo! Aprovechalo!
+                        <span className="text-red-500 font-bold">2x1</span>{" "}
+                        activo
                       </p>
                     </div>
                   ) : (

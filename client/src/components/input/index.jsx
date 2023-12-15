@@ -18,7 +18,7 @@ function Input({
   maxLength,
 }) {
   const inputStyle =
-    "rounded-lg border-0 focus:border-2 border-orange-500 text-white p-2";
+    "rounded-lg border-0 focus:border-2 border-orange-500 text-black p-2";
 
   const style = `${inputStyle} ${customStyle || ""}`;
 
