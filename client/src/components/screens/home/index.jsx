@@ -72,24 +72,31 @@ function Home() {
   };
 
   const handlePurchase = async (producto) => {
-    const response = await axios.post(`${URL}/Mercado_Pago`, producto);
-    const ticketsToStore = existingEvent?.twone ? selectedTicketCount : tickets;
+    if (!name || !lastName || !dni || !email || !tickets) {
+      alert("Por favor completa todos los campos antes de proceder al pago.");
+      return;
+    } else {
+      const response = await axios.post(`${URL}/Mercado_Pago`, producto);
+      const ticketsToStore = existingEvent?.twone
+        ? selectedTicketCount
+        : tickets;
 
-    localStorage.setItem(
-      "clientData",
-      JSON.stringify({
-        name,
-        lastName,
-        dni,
-        email,
-        tickets: ticketsToStore,
-        date: eventDate,
-        twone: existingEvent?.twone,
-        ticketValue,
-        ticketType,
-      })
-    );
-    window.location.href = response.data;
+      localStorage.setItem(
+        "clientData",
+        JSON.stringify({
+          name,
+          lastName,
+          dni,
+          email,
+          tickets: ticketsToStore,
+          date: eventDate,
+          twone: existingEvent?.twone,
+          ticketValue,
+          ticketType,
+        })
+      );
+      window.location.href = response.data;
+    }
   };
 
   const product = {
@@ -99,7 +106,7 @@ function Home() {
   };
 
   return (
-    <>
+    <div>
       <header>
         <div className="flex justify-center">
           <img
@@ -111,7 +118,7 @@ function Home() {
       </header>
       <main className="flex flex-col text-center">
         {showForm === false ? (
-          <div className="flex flex-col text-white gap-12 items-center mt-10 mb-24 lg:my-10">
+          <div className="flex flex-col text-white gap-12 items-center mt-10 mb-24 lg:mb-0">
             <h1 className="text-2xl uppercase font-semibold  drop-shadow-xl">
               CONSEGUÍ TU ENTRADA ACÁ 🤘
             </h1>
@@ -136,7 +143,7 @@ function Home() {
           </div>
         ) : (
           <div className="flex flex-col items-center gap-4 mb-24 lg:mb-0">
-            <section className="bg-gradient-to-r from-neutral-700/80 to-black/80 px-6 py-8 mt-8  rounded-lg drop-shadow-2xl">
+            <section className="bg-gradient-to-r from-neutral-700/80 to-black/80 px-6 pb-8 mt-8  rounded-lg drop-shadow-2xl">
               <div className="text-white flex flex-col lg:flex-row-reverse justify-center w-full mt-8">
                 <div className="flex flex-col items-center gap-4">
                   <h2 className="text-2xl  font-bold uppercase mb-4">
@@ -225,7 +232,7 @@ function Home() {
           de lunes a viernes de 10:00hs a 20:00hs.
         </p>
       </footer>
-    </>
+    </div>
   );
 }
 
