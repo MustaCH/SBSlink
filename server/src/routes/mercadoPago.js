@@ -21,8 +21,8 @@ mercadoPago.post("/", async (req, res) => {
         },
       ],
       back_urls: {
-        success: `${process.env.APPROVED || "http://localhost:5173"}/approved`,
-        failure: `${process.env.APPROVED || "http://localhost:5173"}/declined`,
+        success: `${process.env.FRONT_URL || "http://localhost:5173"}/approved`,
+        failure: `${process.env.FRONT_URL || "http://localhost:5173"}/declined`,
       },
       auto_return: "approved",
     };
