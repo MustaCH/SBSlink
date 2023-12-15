@@ -118,6 +118,7 @@ function Home() {
               <p className="text-lg mb-5">
                 Proxima fecha:{" "}
                 <span className="underline">{existingEvent?.date}</span>
+                <span>{eventDate}</span>
               </p>
               <img
                 className="w-96"
