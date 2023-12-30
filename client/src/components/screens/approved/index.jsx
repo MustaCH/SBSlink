@@ -48,15 +48,20 @@ function Approved() {
     }
   }, [clientData, existingEvent]);
 
-  /*const ticketImage = htmlToImage.toPng(ticketRef.current);
-
   const LayoutEmail = () => {
     return (
       <Html>
         <Section>
           <Container>
             <Text>Bienvenido al infierno</Text>
-            <Img src="ticketImage" />
+            <Ticket
+              name={clientData.name}
+              lastName={clientData.lastName}
+              dni={clientData.dni}
+              tickets={clientData.tickets}
+              date={existingEvent?.date}
+              location={existingEvent?.location}
+            />
           </Container>
         </Section>
       </Html>
@@ -72,7 +77,7 @@ function Approved() {
       lastname: clientData.lastName,
       html: layout,
     });
-  };*/
+  };
 
   const handleCreateInvite = () => {
     if (clientData && existingEvent) {
@@ -121,14 +126,14 @@ function Approved() {
 
   return (
     <div className="overflow-hidden">
-      <div className="flex flex-col gap-4">
-        <h1 className="text-xl font-bold uppercase">Pago aprovado!</h1>
+      <div className="flex flex-col gap-4 text-white">
+        <h1 className="text-xl font-bold uppercase">Pago aprobado!</h1>
         <div className="mb-8">
           <p className="text-lg">Tus entradas se descargarán automaticamente</p>
           <p className="text-sm">
             En caso de que no se inicie la descarga haz{" "}
             <span
-              onClick={() => handleRetryDownload()}
+              onClick={() => sendEmail()}
               className="underline cursor-pointer"
             >
               click aquí

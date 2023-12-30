@@ -6,6 +6,7 @@ import Button from "../../button";
 import Input from "../../input";
 import Ticket from "../../ticket";
 import { useClient } from "../../../context";
+import { quantum } from "ldrs";
 
 function Home() {
   const [existingEvent, setExistingEvent] = useState();
@@ -18,11 +19,13 @@ function Home() {
   const [tickets, setTickets] = useState();
   const [selectedTicketCount, setSelectedTicketCount] = useState(0);
   const [showAlert, setShowAlert] = useState(false);
+  const [loadingPay, setLoadingPay] = useState(false);
   const eventDate = existingEvent?.date;
   const eventLocation = existingEvent?.location;
   const ticketType = existingEvent?.currentTicket;
   const ticketValue = existingEvent?.ticket;
   const URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5173";
+  quantum.register();
 
   useEffect(() => {
     const currentEvent = async () => {
@@ -76,6 +79,8 @@ function Home() {
       setShowAlert(true);
       return;
     } else {
+      setShowAlert(false);
+      setLoadingPay(true);
       const response = await axios.post(`${URL}/Mercado_Pago`, producto);
       const ticketsToStore = existingEvent?.twone
         ? selectedTicketCount
@@ -209,11 +214,20 @@ function Home() {
               ) : (
                 <></>
               )}
-              <Button
-                name={"Ir a pagar"}
-                onClick={() => handlePurchase(product)}
-                customStyle={"px-12"}
-              />
+              {loadingPay === false ? (
+                <Button
+                  name={"Ir a pagar"}
+                  onClick={() => handlePurchase(product)}
+                  customStyle={"px-12"}
+                />
+              ) : (
+                <div className="flex flex-col gap-2 items-center">
+                  <p className="text-white">
+                    *Estamos procesando tus datos...*
+                  </p>
+                  <l-quantum size="60" speed="1.75" color="red"></l-quantum>
+                </div>
+              )}
             </div>
           </div>
         )}

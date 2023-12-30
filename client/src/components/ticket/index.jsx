@@ -9,7 +9,7 @@ import QRCode from "react-qr-code";
 
 function Ticket({ name, lastName, dni, tickets, date, location }) {
   return (
-    <div className="">
+    <div className="text-white">
       <section className="w-[680px] h-fit">
         <div className="flex  gap-12 bg-[url('https://i.ibb.co/syfyH4t/SBS808-LOGOredu-Mini.png')] bg-neutral-900 p-10 rounded-lg">
           <div className="grid place-items-center">
