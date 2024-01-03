@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { getEvent } from "../../../database/firebase";
 import Button from "../../button";
 import Input from "../../input";
-import Ticket from "../../ticket";
 import { useClient } from "../../../context";
 import { quantum } from "ldrs";
 

@@ -1,52 +1,97 @@
-import React, { useEffect, useState } from "react";
-import { Html } from "@react-email/html";
-import { Head } from "@react-email/head";
-import { Section } from "@react-email/section";
-import { Container } from "@react-email/container";
-import { Img } from "@react-email/img";
-import { Text } from "@react-email/text";
+import React from "react";
 import QRCode from "react-qr-code";
 
 function Ticket({ name, lastName, dni, tickets, date, location }) {
   return (
-    <div className="text-white">
-      <section className="w-[680px] h-fit">
-        <div className="flex  gap-12 bg-[url('https://i.ibb.co/syfyH4t/SBS808-LOGOredu-Mini.png')] bg-neutral-900 p-10 rounded-lg">
-          <div className="grid place-items-center">
-            <div className="grid place-items-center">
+    <div
+      style={{
+        fontFamily: "Arial, sans-serif",
+        backgroundColor: "#333",
+        borderRadius: "8px",
+        width: "40rem",
+        margin: "0 auto",
+        color: "white",
+        overflow: "hidden",
+      }}
+    >
+      <div
+        style={{
+          display: "grid",
+          placeContent: "center",
+          gap: "20px",
+          backgroundImage:
+            'url("https://i.ibb.co/syfyH4t/SBS808-LOGOredu-Mini.png")',
+          backgroundColor: "#171717",
+          padding: "2.5rem",
+          borderRadius: "0.5rem",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            gap: "2rem",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "0.5rem",
+            }}
+          >
+            <img
+              style={{ width: "16rem" }}
+              src="https://i.ibb.co/x14BwGV/SBS808-LOGOcomp-RED.png"
+              alt="SBS808 Logo"
+            ></img>
+            <div
+              style={{
+                display: "grid",
+                placeItems: "center",
+              }}
+            >
               <QRCode
                 value={`DNI: ${dni} - Nombre: ${name} ${lastName} - Entradas: ${tickets}`}
               />
             </div>
           </div>
-          <div className="flex flex-col justify-between items-center">
-            <img
-              className="w-64"
-              src="https://i.ibb.co/x14BwGV/SBS808-LOGOcomp-RED.png"
-            ></img>
-            <div className="flex flex-col items-start justify-between mt-4">
+
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "1rem",
+              alignItems: "start",
+              justifyContent: "space-between",
+              marginTop: "1rem",
+              textAlign: "left",
+              color: "white",
+            }}
+          >
+            <p>
+              Nombre:{" "}
+              <strong>
+                {name} {lastName}
+              </strong>
+            </p>
+            <p>
+              DNI: <strong>{dni}</strong>
+            </p>
+            <p>
+              Entradas: <strong>{tickets}</strong>
+            </p>
+            <div>
               <p>
-                Nombre:{" "}
-                <strong>
-                  {name} {lastName}
-                </strong>
+                Válido hasta: <strong>{date}</strong>
               </p>
-              <p>
-                DNI: <strong>{dni}</strong>
-              </p>
-              <p>
-                Entradas: <strong>{tickets}</strong>
-              </p>
-              <div className="text-start mt-4">
-                <p className="text-md">
-                  Válido hasta: <strong>{date}</strong>
-                </p>
-                <p className="text-md">{location}</p>
-              </div>
+              <p>{location}</p>
             </div>
           </div>
         </div>
-      </section>
+      </div>
     </div>
   );
 }

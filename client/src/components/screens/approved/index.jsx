@@ -51,19 +51,14 @@ function Approved() {
   const LayoutEmail = () => {
     return (
       <Html>
-        <Section>
-          <Container>
-            <Text>Bienvenido al infierno</Text>
-            <Ticket
-              name={clientData.name}
-              lastName={clientData.lastName}
-              dni={clientData.dni}
-              tickets={clientData.tickets}
-              date={existingEvent?.date}
-              location={existingEvent?.location}
-            />
-          </Container>
-        </Section>
+        <Ticket
+          name={clientData?.name}
+          lastName={clientData?.lastName}
+          dni={clientData?.dni}
+          tickets={clientData?.tickets}
+          date={existingEvent?.date}
+          location={existingEvent?.location}
+        />
       </Html>
     );
   };
