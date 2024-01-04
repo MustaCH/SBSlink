@@ -8,7 +8,7 @@ function Ticket({ name, lastName, dni, tickets, date, location }) {
         fontFamily: "Arial, sans-serif",
         backgroundColor: "#333",
         borderRadius: "8px",
-        width: "40rem",
+        width: "450px",
         margin: "0 auto",
         color: "white",
         overflow: "hidden",
@@ -16,9 +16,6 @@ function Ticket({ name, lastName, dni, tickets, date, location }) {
     >
       <div
         style={{
-          display: "grid",
-          placeContent: "center",
-          gap: "20px",
           backgroundImage:
             'url("https://i.ibb.co/syfyH4t/SBS808-LOGOredu-Mini.png")',
           backgroundColor: "#171717",
@@ -28,37 +25,20 @@ function Ticket({ name, lastName, dni, tickets, date, location }) {
       >
         <div
           style={{
-            display: "flex",
-            flexDirection: "row",
             gap: "2rem",
-            justifyContent: "space-between",
-            alignItems: "center",
+            placeItems: "center",
           }}
         >
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "0.5rem",
-            }}
-          >
-            <img
-              style={{ width: "16rem" }}
-              src="https://i.ibb.co/x14BwGV/SBS808-LOGOcomp-RED.png"
-              alt="SBS808 Logo"
-            ></img>
-            <div
-              style={{
-                display: "grid",
-                placeItems: "center",
-              }}
-            >
-              <QRCode
-                value={`DNI: ${dni} - Nombre: ${name} ${lastName} - Entradas: ${tickets}`}
-              />
-            </div>
+          <img
+            style={{ width: "16rem", marginLeft: "56.25px" }}
+            src="https://i.ibb.co/x14BwGV/SBS808-LOGOcomp-RED.png"
+            alt="SBS808 Logo"
+          ></img>
+          <div style={{ marginLeft: "56.25px", marginTop: "12px" }}>
+            <QRCode
+              value={`DNI: ${dni} - Nombre: ${name} ${lastName} - Entradas: ${tickets}`}
+            />
           </div>
-
           <div
             style={{
               display: "flex",
@@ -66,8 +46,9 @@ function Ticket({ name, lastName, dni, tickets, date, location }) {
               gap: "1rem",
               alignItems: "start",
               justifyContent: "space-between",
-              marginTop: "1rem",
-              textAlign: "left",
+              marginTop: "24px",
+
+              textAlign: "center",
               color: "white",
             }}
           >

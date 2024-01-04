@@ -9,11 +9,6 @@ import { quantum } from "ldrs";
 import * as htmlToImage from "html-to-image";
 import download from "downloadjs";
 import { Html } from "@react-email/html";
-import { Head } from "@react-email/head";
-import { Section } from "@react-email/section";
-import { Container } from "@react-email/container";
-import { Img } from "@react-email/img";
-import { Text } from "@react-email/text";
 import { render } from "@react-email/render";
 
 function Approved() {
@@ -70,7 +65,9 @@ function Approved() {
       email: clientData.email,
       name: clientData.name,
       lastname: clientData.lastName,
-      html: layout,
+      location: existingEvent?.location,
+      date: existingEvent?.date,
+      pdfFile: layout,
     });
   };
 
@@ -90,16 +87,7 @@ function Approved() {
         ticketType: existingEvent?.currentTicket,
       });
 
-      for (let i = 0; i < tickets; i++) {
-        htmlToImage
-          .toPng(ticketRef.current)
-          .then((dataUrl) => {
-            download(dataUrl, `ticket${name}${lastName}_${i + 1}.png`);
-          })
-          .catch((error) => {
-            console.error("Error al generar la imagen:", error);
-          });
-      }
+      sendEmail();
     }
   };
 
@@ -124,14 +112,16 @@ function Approved() {
       <div className="flex flex-col gap-4 text-white">
         <h1 className="text-xl font-bold uppercase">Pago aprobado!</h1>
         <div className="mb-8">
-          <p className="text-lg">Tus entradas se descargarán automaticamente</p>
+          <p className="text-lg">
+            Recibirás tus entradas vía al email que proporcionaste
+          </p>
           <p className="text-sm">
-            En caso de que no se inicie la descarga haz{" "}
+            Si no recibís el email podés descargarlas haciendo{" "}
             <span
-              onClick={() => sendEmail()}
+              onClick={() => handleRetryDownload()}
               className="underline cursor-pointer"
             >
-              click aquí
+              click acá
             </span>
           </p>
         </div>
